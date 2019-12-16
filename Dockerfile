@@ -45,9 +45,10 @@ ENV PATH="/root/.ebcli-virtual-env/executables:${PATH}"
 ENV PATH="/root/.pyenv/versions/3.7.2/bin:${PATH}"
 
 # ----------------
-# I don't know if we'll actually need jq, but we use it for all other aws cli stuff, so /shrug
+# Install AWS Standard CLI tools, and add jq for easier processing of the all the json produced by awscli
 # ----------------
+RUN apt-get install -yqq awscli
 RUN apt-get install -yqq jq
 
-## Set the default command: display Ansible version
+## Set the default command: display version
 CMD [ "eb", "--version" ]
