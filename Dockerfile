@@ -50,5 +50,10 @@ ENV PATH="/root/.pyenv/versions/3.7.2/bin:${PATH}"
 RUN apt-get install -yqq awscli
 RUN apt-get install -yqq jq
 
+# ----------------
+# Install Rsync for pushing/pulling files around
+# ----------------
+RUN apt-get install -yqq rsync
+
 ## Set the default command: display version
 CMD [ "eb", "--version" ]
