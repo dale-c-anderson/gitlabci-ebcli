@@ -55,5 +55,24 @@ RUN apt-get install -yqq jq
 # ----------------
 RUN apt-get install -yqq rsync
 
-## Set the default command: display version
-CMD [ "eb", "--version" ]
+# ----------------
+# Install Ansible + related tools
+# ----------------
+RUN apt-get update -yqq
+RUN apt-get install -yqq software-properties-common
+RUN apt-add-repository --yes --update ppa:ansible/ansible
+RUN apt-get install -yqq ansible
+RUN echo 'localhost' > /etc/ansible/hosts
+RUN apt-get install -yqq sshpass openssh-client
+
+# ----------------
+# The eb command needs to run from inside the home dir
+# ----------------
+WORKDIR /root
+
+# ----------------
+# Set the default command: display versions of stuff we installed
+# ----------------
+COPY ./versions.sh /root/
+RUN chmod +x /root/versions.sh
+CMD ["/root/versions.sh"]
